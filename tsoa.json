@@ -1,0 +1,31 @@
+{
+  "entryFile": "src/index.ts",
+  "noImplicitAdditionalProperties": "throw-on-extras",
+  "controllerPathGlobs": [
+    "src/app/**/*Controller.ts",
+    "src/app/**/*swagger.ts"
+  ],
+  "spec": {
+    "outputDirectory": "src/tsoa-build",
+    "specVersion": 3,
+    "name": "AI Chat API",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Paul Naber",
+      "email": "paul.naber@inside-m2m.de"
+    },
+    "description": "AI Chat API",
+    "license": "",
+    "securityDefinitions": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "string"
+      }
+    }
+  },
+  "routes": {
+    "routesDir": "src/tsoa-build",
+    "authenticationModule": "./src/authentication.ts"
+  }
+}
