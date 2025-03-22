@@ -40,7 +40,8 @@ services:
     environment:
       - POSTGRES_USER=${DB_USER:-postgres}
       - POSTGRES_PASSWORD=${DB_PASSWORD:-postgres}
-      - POSTGRES_DB=${DB_NAME:-aichat}
+      # REMOVE the line below to prevent postgres from creating a non-existent database.
+      - POSTGRES_DB=aichat
     ports:
       - '${DB_PORT:-5432}:5432'
     volumes:

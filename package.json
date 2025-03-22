@@ -5,7 +5,6 @@
   "type": "module",
   "scripts": {
     "build": "npx tsc",
-    "build:vite": "vite build",
     "start": "node dist/index.js",
     "dev": "npx tsc && node dist/index.js",
     "dev:logs": "npm run dev | tee server.log",
