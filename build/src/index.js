@@ -77,7 +77,7 @@ app.use('/assets', express_1.default.static(path.join(__dirname, 'assets')));
 //   }
 //   next();
 // });
-(0, swaggerController_1.default)(app, 3333);
+(0, swaggerController_1.default)(app, port);
 const server = app.listen(port, () => {
     console.log(`Listening at http://localhost:${port}/`);
 });

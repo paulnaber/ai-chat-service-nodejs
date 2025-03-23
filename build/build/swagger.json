@@ -1,4 +1,5 @@
 {
+    "openapi": "3.0.0",
     "components": {
         "examples": {},
         "headers": {},
@@ -39,8 +40,28 @@
             "email": "paul.naber@inside-m2m.de"
         }
     },
-    "openapi": "3.0.0",
     "paths": {
+        "/openapi": {
+            "get": {
+                "operationId": "GetOpenapi",
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "description": "Get OpenAPI definition",
+                "tags": [
+                    "Openapi"
+                ],
+                "security": [],
+                "parameters": []
+            }
+        },
         "/v1/chats": {
             "get": {
                 "operationId": "GetChats",
@@ -70,27 +91,6 @@
                         ]
                     }
                 ],
-                "parameters": []
-            }
-        },
-        "/openapi": {
-            "get": {
-                "operationId": "GetOpenapi",
-                "responses": {
-                    "200": {
-                        "description": "Ok",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    }
-                },
-                "description": "Get OpenAPI definition",
-                "tags": [
-                    "Openapi"
-                ],
-                "security": [],
                 "parameters": []
             }
         }
