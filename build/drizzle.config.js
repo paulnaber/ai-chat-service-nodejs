@@ -7,6 +7,6 @@ exports.default = (0, drizzle_kit_1.defineConfig)({
     dialect: 'postgresql',
     dbCredentials: {
         url: process.env.DB_URL ||
-            'postgres://username:password@localhost:5432/chirpy?sslmode=disable'
-    }
+            'postgres://postgres:postgres@localhost:5432/aichat?sslmode=disable',
+    },
 });

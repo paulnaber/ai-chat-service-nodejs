@@ -21,12 +21,12 @@ const expressAuthenticationRecasted = expressAuthentication as (req: ExRequest, 
 const models: TsoaRoute.Models = {
     "NewMessage": {
         "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"createdAt":{"dataType":"union","subSchemas":[{"dataType":"datetime"},{"dataType":"undefined"}]},"senderType":{"dataType":"union","subSchemas":[{"dataType":"string"},{"dataType":"undefined"}]},"id":{"dataType":"union","subSchemas":[{"dataType":"string"},{"dataType":"undefined"}]},"chatId":{"dataType":"string","required":true},"content":{"dataType":"string","required":true}},"validators":{}},
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"createdAt":{"dataType":"union","subSchemas":[{"dataType":"datetime"},{"dataType":"undefined"}]},"senderType":{"dataType":"union","subSchemas":[{"dataType":"string"},{"dataType":"undefined"}]},"id":{"dataType":"union","subSchemas":[{"dataType":"string"},{"dataType":"undefined"}]},"chatId":{"dataType":"string","required":true},"userId":{"dataType":"string","required":true},"content":{"dataType":"string","required":true}},"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "NewChat": {
         "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"lastActiveDate":{"dataType":"union","subSchemas":[{"dataType":"datetime"},{"dataType":"undefined"}]},"title":{"dataType":"union","subSchemas":[{"dataType":"string"},{"dataType":"undefined"}]},"id":{"dataType":"union","subSchemas":[{"dataType":"string"},{"dataType":"undefined"}]}},"validators":{}},
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"lastActiveDate":{"dataType":"union","subSchemas":[{"dataType":"datetime"},{"dataType":"undefined"}]},"title":{"dataType":"union","subSchemas":[{"dataType":"string"},{"dataType":"undefined"}]},"userId":{"dataType":"string","required":true},"id":{"dataType":"union","subSchemas":[{"dataType":"string"},{"dataType":"undefined"}]}},"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "ValidateErrorJSON": {
@@ -118,6 +118,7 @@ export function RegisterRoutes(app: Router) {
         const argsMessageController_createMessage: Record<string, TsoaRoute.ParameterSchema> = {
                 body: {"in":"body","name":"body","required":true,"dataType":"nestedObjectLiteral","nestedProperties":{"content":{"dataType":"string","required":true}}},
                 chatId: {"in":"path","name":"chatId","required":true,"dataType":"string"},
+                request: {"in":"request","name":"request","required":true,"dataType":"object"},
         };
         app.post('/v1/chats/:chatId/messages',
             authenticateMiddleware([{"BearerAuth":[]}]),
@@ -148,6 +149,7 @@ export function RegisterRoutes(app: Router) {
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         const argsChatsController_getChats: Record<string, TsoaRoute.ParameterSchema> = {
+                request: {"in":"request","name":"request","required":true,"dataType":"object"},
         };
         app.get('/v1/chats',
             authenticateMiddleware([{"BearerAuth":[]}]),
@@ -178,7 +180,8 @@ export function RegisterRoutes(app: Router) {
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         const argsChatsController_createChat: Record<string, TsoaRoute.ParameterSchema> = {
-                body: {"in":"body","name":"body","required":true,"ref":"NewChat"},
+                body: {"in":"body","name":"body","required":true,"dataType":"nestedObjectLiteral","nestedProperties":{"content":{"dataType":"string","required":true}}},
+                request: {"in":"request","name":"request","required":true,"dataType":"object"},
         };
         app.post('/v1/chats',
             authenticateMiddleware([{"BearerAuth":[]}]),

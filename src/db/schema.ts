@@ -2,6 +2,7 @@ import { pgTable, timestamp, uuid, varchar } from 'drizzle-orm/pg-core';
 
 export const chats = pgTable('chats', {
   id: uuid('id').primaryKey().defaultRandom(),
+  userId: varchar('user_id').notNull(),
   title: varchar('title').notNull().default('Untitled Chat'),
   lastActiveDate: timestamp('last_active_date')
     .notNull()
@@ -15,12 +16,14 @@ export type _NewChat = typeof chats.$inferInsert;
 
 export type NewChat = {
   id?: string | undefined;
+  userId: string;
   title?: string | undefined;
   lastActiveDate?: Date | undefined;
 };
 
 export const messages = pgTable('messages', {
   id: uuid('id').primaryKey().defaultRandom(),
+  userId: varchar('user_id').notNull(),
   content: varchar('content').notNull(),
   senderType: varchar('sender_type').notNull().default('user'),
   createdAt: timestamp('created_at').notNull().defaultNow(),
@@ -35,6 +38,7 @@ export type _NewMessage = typeof messages.$inferInsert;
 
 export type NewMessage = {
   content: string;
+  userId: string;
   chatId: string;
   id?: string | undefined;
   senderType?: string | undefined;

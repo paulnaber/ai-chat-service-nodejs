@@ -1,5 +1,15 @@
 // src/users/usersController.ts
-import { Body, Controller, Get, Path, Post, Route, Security, Tags } from 'tsoa';
+import {
+  Body,
+  Controller,
+  Get,
+  Path,
+  Post,
+  Request,
+  Route,
+  Security,
+  Tags,
+} from 'tsoa';
 import { NewMessage } from '../db/schema';
 import { MessageService } from './message.service';
 
@@ -25,8 +35,16 @@ export class MessageController extends Controller {
   @Tags('Messages')
   public async createMessage(
     @Body() body: { content: string },
-    @Path() chatId: string
+    @Path() chatId: string,
+    @Request() request: any
   ): Promise<NewMessage> {
-    return MessageService.create(chatId, body.content);
+    // TODO why is there no email in request.user?
+    // this also needs to be checked first
+    console.warn('userId from token ---->', request.user.preferred_username);
+    return MessageService.create(
+      chatId,
+      body.content,
+      request.user.preferred_username
+    );
   }
 }

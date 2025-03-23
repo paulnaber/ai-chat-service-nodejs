@@ -6,8 +6,9 @@ class MessageService {
     static async getAll(chatId) {
         return await (0, messages_1.getMessages)(chatId);
     }
-    static async create(chatId, message) {
+    static async create(chatId, message, userId) {
         return await (0, messages_1.createMessage)({
+            userId,
             content: message,
             chatId: chatId,
         });

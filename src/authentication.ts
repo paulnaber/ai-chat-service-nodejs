@@ -17,7 +17,7 @@ export function expressAuthentication(
       verifyJwt(token)
         .then((verifiedData) => {
           // Resolve the new promise with the result of verifyJwt
-          console.warn('token verified...', verifiedData);
+          console.warn('token verified...');
           if (checkRoles(verifiedData as jwt.JwtPayload, scopes)) {
             console.warn('user has the required roles...');
             resolve(verifiedData);
@@ -76,4 +76,9 @@ const verifyJwt = async (token: string) => {
 
 function checkRoles(token: jwt.JwtPayload, scopes: string[]) {
   return scopes.every((scope) => token.realm_access?.roles?.includes(scope));
+}
+
+export function getEmailFromToken(verifiedData: jwt.JwtPayload) {
+  console.warn('verifiedData ---------------------->', verifiedData);
+  return 'hier das hat geklappt';
 }

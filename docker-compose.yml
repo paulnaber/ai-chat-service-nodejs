@@ -9,11 +9,11 @@ services:
       - POSTGRES_USER=${DB_USER:-postgres}
       - POSTGRES_PASSWORD=${DB_PASSWORD:-postgres}
       # REMOVE the line below to prevent postgres from creating a non-existent database.
-      - POSTGRES_DB=${DB_NAME:-5432}
+      - POSTGRES_DB=${DB_NAME:-aichat}
     ports:
       - '${DB_PORT:-5432}:5432'
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+    # volumes:
+    #   - postgres_data:/var/lib/postgresql/data
     healthcheck:
       test: ['CMD-SHELL', 'pg_isready -U postgres']
       interval: 10s

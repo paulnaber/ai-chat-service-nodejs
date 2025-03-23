@@ -18,15 +18,21 @@ let ChatsController = class ChatsController extends tsoa_1.Controller {
      * Returns an array of chats owned by the user. User identity (email) is extracted from JWT token.
      * @summary Get all chats for a user
      */
-    async getChats() {
-        return chat_service_1.ChatService.getAll();
+    async getChats(request) {
+        // TODO why is there no email in request.user?
+        // this also needs to be checked first
+        console.warn('userId from token ---->', request.user.preferred_username);
+        return chat_service_1.ChatService.getAll(request.user.preferred_username);
     }
     /**
      * Creates a new chat with the initial message content. User identity (email) is extracted from JWT token.
      * @summary Create a new chat
      */
-    async createChat(body) {
-        return chat_service_1.ChatService.create(body);
+    async createChat(body, request) {
+        // TODO why is there no email in request.user?
+        // this also needs to be checked first
+        console.warn('userId from token ---->', request.user.preferred_username);
+        return chat_service_1.ChatService.create(body.content, request.user.preferred_username);
     }
 };
 exports.ChatsController = ChatsController;
@@ -35,14 +41,16 @@ __decorate([
     (0, tsoa_1.Security)('BearerAuth') // add role checks like this: @Security('BearerAuth', ['admin'])
     ,
     (0, tsoa_1.Get)(),
-    (0, tsoa_1.Tags)('Chats')
+    (0, tsoa_1.Tags)('Chats'),
+    __param(0, (0, tsoa_1.Request)())
 ], ChatsController.prototype, "getChats", null);
 __decorate([
     (0, tsoa_1.Response)(422, 'Validation Failed'),
     (0, tsoa_1.Security)('BearerAuth'),
     (0, tsoa_1.Post)(),
     (0, tsoa_1.Tags)('Chats'),
-    __param(0, (0, tsoa_1.Body)())
+    __param(0, (0, tsoa_1.Body)()),
+    __param(1, (0, tsoa_1.Request)())
 ], ChatsController.prototype, "createChat", null);
 exports.ChatsController = ChatsController = __decorate([
     (0, tsoa_1.Route)('v1/chats')

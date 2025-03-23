@@ -25,8 +25,11 @@ let MessageController = class MessageController extends tsoa_1.Controller {
      * Creates a new message in a specific chat. User identity (email) is extracted from JWT token.
      * @summary Create a new message
      */
-    async createMessage(body, chatId) {
-        return message_service_1.MessageService.create(chatId, body.content);
+    async createMessage(body, chatId, request) {
+        // TODO why is there no email in request.user?
+        // this also needs to be checked first
+        console.warn('userId from token ---->', request.user.preferred_username);
+        return message_service_1.MessageService.create(chatId, body.content, request.user.preferred_username);
     }
 };
 exports.MessageController = MessageController;
@@ -42,7 +45,8 @@ __decorate([
     (0, tsoa_1.Post)('{chatId}/messages'),
     (0, tsoa_1.Tags)('Messages'),
     __param(0, (0, tsoa_1.Body)()),
-    __param(1, (0, tsoa_1.Path)())
+    __param(1, (0, tsoa_1.Path)()),
+    __param(2, (0, tsoa_1.Request)())
 ], MessageController.prototype, "createMessage", null);
 exports.MessageController = MessageController = __decorate([
     (0, tsoa_1.Route)('v1/chats')

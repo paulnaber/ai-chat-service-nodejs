@@ -6,7 +6,6 @@
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import express, { ErrorRequestHandler } from 'express';
-import * as path from 'path';
 import { RegisterRoutes } from '../build/routes';
 
 // import routes from './app/routes';
@@ -18,7 +17,6 @@ const port = process.env.PORT || 3333;
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 // manual routes
 // routes(app);

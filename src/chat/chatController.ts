@@ -4,6 +4,7 @@ import {
   Controller,
   Get,
   Post,
+  Request,
   Response,
   Route,
   Security,
@@ -23,8 +24,11 @@ export class ChatsController extends Controller {
   @Security('BearerAuth') // add role checks like this: @Security('BearerAuth', ['admin'])
   @Get()
   @Tags('Chats')
-  public async getChats(): Promise<NewChat[]> {
-    return ChatService.getAll();
+  public async getChats(@Request() request: any): Promise<NewChat[]> {
+    // TODO why is there no email in request.user?
+    // this also needs to be checked first
+    console.warn('userId from token ---->', request.user.preferred_username);
+    return ChatService.getAll(request.user.preferred_username);
   }
 
   /**
@@ -35,7 +39,13 @@ export class ChatsController extends Controller {
   @Security('BearerAuth')
   @Post()
   @Tags('Chats')
-  public async createChat(@Body() body: NewChat): Promise<NewChat> {
-    return ChatService.create(body);
+  public async createChat(
+    @Body() body: { content: string },
+    @Request() request: any
+  ): Promise<NewChat> {
+    // TODO why is there no email in request.user?
+    // this also needs to be checked first
+    console.warn('userId from token ---->', request.user.preferred_username);
+    return ChatService.create(body.content, request.user.preferred_username);
   }
 }

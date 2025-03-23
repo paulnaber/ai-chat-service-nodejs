@@ -22,12 +22,16 @@
                     "chatId": {
                         "type": "string"
                     },
+                    "userId": {
+                        "type": "string"
+                    },
                     "content": {
                         "type": "string"
                     }
                 },
                 "required": [
                     "chatId",
+                    "userId",
                     "content"
                 ],
                 "type": "object"
@@ -41,10 +45,16 @@
                     "title": {
                         "type": "string"
                     },
+                    "userId": {
+                        "type": "string"
+                    },
                     "id": {
                         "type": "string"
                     }
                 },
+                "required": [
+                    "userId"
+                ],
                 "type": "object"
             },
             "ValidateErrorJSON": {
@@ -282,7 +292,15 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/NewChat"
+                                "properties": {
+                                    "content": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "content"
+                                ],
+                                "type": "object"
                             }
                         }
                     }

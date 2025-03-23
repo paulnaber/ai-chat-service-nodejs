@@ -6,8 +6,13 @@ export class MessageService {
     return await getMessages(chatId);
   }
 
-  static async create(chatId: string, message: string): Promise<NewMessage> {
+  static async create(
+    chatId: string,
+    message: string,
+    userId: string
+  ): Promise<NewMessage> {
     return await createMessage({
+      userId,
       content: message,
       chatId: chatId,
     });
