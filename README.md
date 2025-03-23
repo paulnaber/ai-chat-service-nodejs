@@ -5,18 +5,18 @@ The main focus of this project is the architecture. I want to compare it with ot
 
 ## Features
 
-• Supports chat and message operations
-• OpenAPI documentation generated from code using annotations
-• Authentication with OAuth2 Provider
-• Downloadable OpenAPI definition (as json)
-• Easy local setup with Docker Compose
+- Supports chat and message operations
+- OpenAPI documentation generated from code using annotations
+- Authentication with OAuth2 Provider
+- Downloadable OpenAPI definition (as json)
+- Easy local setup with Docker Compose
 
 ## Tech Stack
 
-• tsoa - OpenAPI generation from code with annotation-style patterns
-• Express.js - Lightweight and flexible routing
-• Drizzle ORM - Database interactions with a type-safe and modern approach
-• Docker Compose - Simplified local database setup
+- tsoa - OpenAPI generation from code with annotation-style patterns
+- Express.js - Lightweight and flexible routing
+- Drizzle ORM - Database interactions with a type-safe and modern approach
+- Docker Compose - Simplified local database setup
 
 ### Getting Started
 
