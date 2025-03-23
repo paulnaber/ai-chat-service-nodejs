@@ -5,11 +5,18 @@ const runtime_1 = require("@tsoa/runtime");
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 const swaggerController_1 = require("./../src/swaggerController");
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+const messageController_1 = require("./../src/message/messageController");
+// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 const chatController_1 = require("./../src/chat/chatController");
 const authentication_1 = require("./../src/authentication");
 const expressAuthenticationRecasted = authentication_1.expressAuthentication;
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 const models = {
+    "NewMessage": {
+        "dataType": "refAlias",
+        "type": { "dataType": "nestedObjectLiteral", "nestedProperties": { "createdAt": { "dataType": "union", "subSchemas": [{ "dataType": "datetime" }, { "dataType": "undefined" }] }, "senderType": { "dataType": "union", "subSchemas": [{ "dataType": "string" }, { "dataType": "undefined" }] }, "id": { "dataType": "union", "subSchemas": [{ "dataType": "string" }, { "dataType": "undefined" }] }, "chatId": { "dataType": "string", "required": true }, "content": { "dataType": "string", "required": true } }, "validators": {} },
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "NewChat": {
         "dataType": "refAlias",
         "type": { "dataType": "nestedObjectLiteral", "nestedProperties": { "lastActiveDate": { "dataType": "union", "subSchemas": [{ "dataType": "datetime" }, { "dataType": "undefined" }] }, "title": { "dataType": "union", "subSchemas": [{ "dataType": "string" }, { "dataType": "undefined" }] }, "id": { "dataType": "union", "subSchemas": [{ "dataType": "string" }, { "dataType": "undefined" }] } }, "validators": {} },
@@ -44,6 +51,53 @@ function RegisterRoutes(app) {
         }
     });
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    const argsMessageController_getMessages = {
+        chatId: { "in": "path", "name": "chatId", "required": true, "dataType": "string" },
+    };
+    app.get('/v1/chats/:chatId/messages', authenticateMiddleware([{ "BearerAuth": [] }]), ...((0, runtime_1.fetchMiddlewares)(messageController_1.MessageController)), ...((0, runtime_1.fetchMiddlewares)(messageController_1.MessageController.prototype.getMessages)), async function MessageController_getMessages(request, response, next) {
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        let validatedArgs = [];
+        try {
+            validatedArgs = templateService.getValidatedArgs({ args: argsMessageController_getMessages, request, response });
+            const controller = new messageController_1.MessageController();
+            await templateService.apiHandler({
+                methodName: 'getMessages',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: undefined,
+            });
+        }
+        catch (err) {
+            return next(err);
+        }
+    });
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    const argsMessageController_createMessage = {
+        body: { "in": "body", "name": "body", "required": true, "dataType": "nestedObjectLiteral", "nestedProperties": { "content": { "dataType": "string", "required": true } } },
+        chatId: { "in": "path", "name": "chatId", "required": true, "dataType": "string" },
+    };
+    app.post('/v1/chats/:chatId/messages', authenticateMiddleware([{ "BearerAuth": [] }]), ...((0, runtime_1.fetchMiddlewares)(messageController_1.MessageController)), ...((0, runtime_1.fetchMiddlewares)(messageController_1.MessageController.prototype.createMessage)), async function MessageController_createMessage(request, response, next) {
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        let validatedArgs = [];
+        try {
+            validatedArgs = templateService.getValidatedArgs({ args: argsMessageController_createMessage, request, response });
+            const controller = new messageController_1.MessageController();
+            await templateService.apiHandler({
+                methodName: 'createMessage',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: undefined,
+            });
+        }
+        catch (err) {
+            return next(err);
+        }
+    });
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     const argsChatsController_getChats = {};
     app.get('/v1/chats', authenticateMiddleware([{ "BearerAuth": [] }]), ...((0, runtime_1.fetchMiddlewares)(chatController_1.ChatsController)), ...((0, runtime_1.fetchMiddlewares)(chatController_1.ChatsController.prototype.getChats)), async function ChatsController_getChats(request, response, next) {
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
@@ -53,6 +107,29 @@ function RegisterRoutes(app) {
             const controller = new chatController_1.ChatsController();
             await templateService.apiHandler({
                 methodName: 'getChats',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: undefined,
+            });
+        }
+        catch (err) {
+            return next(err);
+        }
+    });
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    const argsChatsController_createChat = {
+        body: { "in": "body", "name": "body", "required": true, "ref": "NewChat" },
+    };
+    app.post('/v1/chats', authenticateMiddleware([{ "BearerAuth": [] }]), ...((0, runtime_1.fetchMiddlewares)(chatController_1.ChatsController)), ...((0, runtime_1.fetchMiddlewares)(chatController_1.ChatsController.prototype.createChat)), async function ChatsController_createChat(request, response, next) {
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        let validatedArgs = [];
+        try {
+            validatedArgs = templateService.getValidatedArgs({ args: argsChatsController_createChat, request, response });
+            const controller = new chatController_1.ChatsController();
+            await templateService.apiHandler({
+                methodName: 'createChat',
                 controller,
                 response,
                 next,

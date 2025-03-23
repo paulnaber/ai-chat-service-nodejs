@@ -7,6 +7,31 @@
 		"requestBodies": {},
 		"responses": {},
 		"schemas": {
+			"NewMessage": {
+				"properties": {
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"senderType": {
+						"type": "string"
+					},
+					"id": {
+						"type": "string"
+					},
+					"chatId": {
+						"type": "string"
+					},
+					"content": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"chatId",
+					"content"
+				],
+				"type": "object"
+			},
 			"NewChat": {
 				"properties": {
 					"lastActiveDate": {
@@ -62,6 +87,99 @@
 				"parameters": []
 			}
 		},
+		"/v1/chats/{chatId}/messages": {
+			"get": {
+				"operationId": "GetMessages",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/NewMessage"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"description": "Returns an array of messages for the specified chat. User identity (email) is extracted from JWT token.",
+				"summary": "Get all messages for a chat",
+				"tags": [
+					"Messages"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "chatId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"post": {
+				"operationId": "CreateMessage",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/NewMessage"
+								}
+							}
+						}
+					}
+				},
+				"description": "Creates a new message in a specific chat. User identity (email) is extracted from JWT token.",
+				"summary": "Create a new message",
+				"tags": [
+					"Messages"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "chatId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"content": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"content"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/v1/chats": {
 			"get": {
 				"operationId": "GetChats",
@@ -80,7 +198,8 @@
 						}
 					}
 				},
-				"description": "Get all Players",
+				"description": "Returns an array of chats owned by the user. User identity (email) is extracted from JWT token.",
+				"summary": "Get all chats for a user",
 				"tags": [
 					"Chats"
 				],
@@ -90,6 +209,42 @@
 					}
 				],
 				"parameters": []
+			},
+			"post": {
+				"operationId": "CreateChat",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/NewChat"
+								}
+							}
+						}
+					}
+				},
+				"description": "Creates a new chat with the initial message content. User identity (email) is extracted from JWT token.",
+				"summary": "Create a new chat",
+				"tags": [
+					"Chats"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/NewChat"
+							}
+						}
+					}
+				}
 			}
 		}
 	},

@@ -1,57 +1,29 @@
 // src/users/usersController.ts
-import { Controller, Get, Route, Security, Tags } from 'tsoa';
+import { Body, Controller, Get, Post, Route, Security, Tags } from 'tsoa';
 import { NewChat } from '../db/schema';
 import { ChatService } from './chat.service';
-
-// interface ValidateErrorJSON {
-//   message: 'Validation failed';
-//   details: { [name: string]: unknown };
-// }
 
 @Route('v1/chats')
 export class ChatsController extends Controller {
   /**
-   * Get all Players
+   * Returns an array of chats owned by the user. User identity (email) is extracted from JWT token.
+   * @summary Get all chats for a user
    */
-  // @Security('BearerAuth', ['admin'])
-  @Security('BearerAuth')
+  @Security('BearerAuth') // add role checks like this: @Security('BearerAuth', ['admin'])
   @Get()
   @Tags('Chats')
   public async getChats(): Promise<NewChat[]> {
     return ChatService.getAll();
   }
 
-  // /**
-  //  * Update a single Player
-  //  */
-  // @Security('BearerAuth', ['admin'])
-  // @Put('{id}')
-  // @Tags('Chats')
-  // public async updatePlayer(
-  //   @Path() id: string,
-  //   @Body() body: PlayerDto
-  // ): Promise<PlayerDto> {
-  //   return PlayerService.update(id, body);
-  // }
-
-  // /**
-  //  * Create a single Player
-  //  */
-  // @Security('BearerAuth', ['admin'])
-  // @Post()
-  // @Response<ValidateErrorJSON>(422, 'Validation Failed')
-  // @Tags('Players')
-  // public async createPlayer(@Body() body: PlayerDto): Promise<PlayerDto> {
-  //   return PlayerService.create(body);
-  // }
-
-  // /**
-  //  * Delete a single Player
-  //  */
-  // @Security('BearerAuth', ['admin'])
-  // @Delete('{id}')
-  // @Tags('Players')
-  // public async deletePlayer(@Path() id: string): Promise<boolean> {
-  //   return PlayerService.delete(id);
-  // }
+  /**
+   * Creates a new chat with the initial message content. User identity (email) is extracted from JWT token.
+   * @summary Create a new chat
+   */
+  @Security('BearerAuth')
+  @Post()
+  @Tags('Chats')
+  public async createChat(@Body() body: NewChat): Promise<NewChat> {
+    return ChatService.create(body);
+  }
 }
