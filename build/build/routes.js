@@ -45,7 +45,7 @@ function RegisterRoutes(app) {
     });
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     const argsChatsController_getChats = {};
-    app.get('/v1/chats', authenticateMiddleware([{ "BearerAuth": ["admin"] }]), ...((0, runtime_1.fetchMiddlewares)(chatController_1.ChatsController)), ...((0, runtime_1.fetchMiddlewares)(chatController_1.ChatsController.prototype.getChats)), async function ChatsController_getChats(request, response, next) {
+    app.get('/v1/chats', authenticateMiddleware([{ "BearerAuth": [] }]), ...((0, runtime_1.fetchMiddlewares)(chatController_1.ChatsController)), ...((0, runtime_1.fetchMiddlewares)(chatController_1.ChatsController.prototype.getChats)), async function ChatsController_getChats(request, response, next) {
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         let validatedArgs = [];
         try {

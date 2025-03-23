@@ -71,7 +71,7 @@ export function RegisterRoutes(app: Router) {
         const argsChatsController_getChats: Record<string, TsoaRoute.ParameterSchema> = {
         };
         app.get('/v1/chats',
-            authenticateMiddleware([{"BearerAuth":["admin"]}]),
+            authenticateMiddleware([{"BearerAuth":[]}]),
             ...(fetchMiddlewares<RequestHandler>(ChatsController)),
             ...(fetchMiddlewares<RequestHandler>(ChatsController.prototype.getChats)),
 

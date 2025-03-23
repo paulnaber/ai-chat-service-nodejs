@@ -35,6 +35,7 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.config = void 0;
 const dotenv = __importStar(require("dotenv"));
+// make sure the .env file is loaded
 dotenv.config();
 function envOrThrow(key) {
     const value = process.env[key];
@@ -48,11 +49,13 @@ const migrationConfig = {
 };
 exports.config = {
     api: {
-        fileServerHits: 0,
         port: Number(envOrThrow('PORT')),
     },
     db: {
         url: envOrThrow('DB_URL'),
         migrationConfig: migrationConfig,
+    },
+    auth: {
+        certsUrl: envOrThrow('AUTH_CERTS_URL'),
     },
 };

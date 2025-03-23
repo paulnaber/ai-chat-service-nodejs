@@ -86,9 +86,7 @@
                 ],
                 "security": [
                     {
-                        "BearerAuth": [
-                            "admin"
-                        ]
+                        "BearerAuth": []
                     }
                 ],
                 "parameters": []

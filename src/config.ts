@@ -4,10 +4,10 @@ import type { MigrationConfig } from 'drizzle-orm/migrator';
 type Config = {
   api: APIConfig;
   db: DBConfig;
+  auth: AuthConfig;
 };
 
 type APIConfig = {
-  fileServerHits: number;
   port: number;
 };
 
@@ -16,6 +16,11 @@ type DBConfig = {
   migrationConfig: MigrationConfig;
 };
 
+type AuthConfig = {
+  certsUrl: string;
+};
+
+// make sure the .env file is loaded
 dotenv.config();
 
 function envOrThrow(key: string) {
@@ -32,11 +37,13 @@ const migrationConfig: MigrationConfig = {
 
 export const config: Config = {
   api: {
-    fileServerHits: 0,
     port: Number(envOrThrow('PORT')),
   },
   db: {
     url: envOrThrow('DB_URL'),
     migrationConfig: migrationConfig,
+  },
+  auth: {
+    certsUrl: envOrThrow('AUTH_CERTS_URL'),
   },
 };

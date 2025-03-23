@@ -13,7 +13,8 @@ export class ChatsController extends Controller {
   /**
    * Get all Players
    */
-  @Security('BearerAuth', ['admin'])
+  // @Security('BearerAuth', ['admin'])
+  @Security('BearerAuth')
   @Get()
   @Tags('Chats')
   public async getChats(): Promise<NewChat[]> {

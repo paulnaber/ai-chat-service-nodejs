@@ -18,13 +18,14 @@ let ChatsController = class ChatsController extends tsoa_1.Controller {
     /**
      * Get all Players
      */
+    // @Security('BearerAuth', ['admin'])
     async getChats() {
         return chat_service_1.ChatService.getAll();
     }
 };
 exports.ChatsController = ChatsController;
 __decorate([
-    (0, tsoa_1.Security)('BearerAuth', ['admin']),
+    (0, tsoa_1.Security)('BearerAuth'),
     (0, tsoa_1.Get)(),
     (0, tsoa_1.Tags)('Chats')
 ], ChatsController.prototype, "getChats", null);
