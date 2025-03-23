@@ -31,12 +31,14 @@ let ChatsController = class ChatsController extends tsoa_1.Controller {
 };
 exports.ChatsController = ChatsController;
 __decorate([
+    (0, tsoa_1.Response)(422, 'Validation Failed'),
     (0, tsoa_1.Security)('BearerAuth') // add role checks like this: @Security('BearerAuth', ['admin'])
     ,
     (0, tsoa_1.Get)(),
     (0, tsoa_1.Tags)('Chats')
 ], ChatsController.prototype, "getChats", null);
 __decorate([
+    (0, tsoa_1.Response)(422, 'Validation Failed'),
     (0, tsoa_1.Security)('BearerAuth'),
     (0, tsoa_1.Post)(),
     (0, tsoa_1.Tags)('Chats'),

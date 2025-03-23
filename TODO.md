@@ -1,1 +1,2 @@
--   tryCatch function
+- tryCatch function
+- integration tests

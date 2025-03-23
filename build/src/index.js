@@ -46,6 +46,7 @@ const express_1 = __importDefault(require("express"));
 const path = __importStar(require("path"));
 const routes_1 = require("../build/routes");
 // import routes from './app/routes';
+const tsoa_1 = require("tsoa");
 const swaggerController_1 = __importDefault(require("./swaggerController"));
 const app = (0, express_1.default)();
 const port = process.env.PORT || 3333;
@@ -56,27 +57,23 @@ app.use('/assets', express_1.default.static(path.join(__dirname, 'assets')));
 // routes(app);
 // tsoa routes
 (0, routes_1.RegisterRoutes)(app);
-// app.use(function errorHandler(
-//   err: unknown,
-//   req: ExRequest,
-//   res: ExResponse,
-//   next: NextFunction
-// ): ExResponse | void {
-//   if (err instanceof ValidateError) {
-//     console.warn(`Caught Validation Error for ${req.path}:`, err.fields);
-//     return res.status(422).json({
-//       message: 'Validation Failed',
-//       details: err?.fields,
-//     });
-//   }
-//   if (err instanceof Error) {
-//     console.warn('err in errorHandler', err);
-//     return res.status((err as any)?.status || 500).json({
-//       message: err.message || 'Internal Server Error',
-//     });
-//   }
-//   next();
-// });
+const errorHandler = (err, req, res, next) => {
+    if (err instanceof tsoa_1.ValidateError) {
+        console.warn(`Caught Validation Error for ${req.path}:`, err.fields);
+        res.status(422).json({
+            message: 'Validation Failed',
+            details: err?.fields,
+        });
+    }
+    if (err instanceof Error) {
+        console.error(`Internal Server Error: ${err.message}`);
+        res.status(500).json({
+            message: 'Internal Server Error',
+        });
+    }
+    next();
+};
+app.use(errorHandler);
 (0, swaggerController_1.default)(app, port);
 const server = app.listen(port, () => {
     console.log(`Listening at http://localhost:${port}/`);

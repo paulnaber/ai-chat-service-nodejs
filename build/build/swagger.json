@@ -46,6 +46,28 @@
                     }
                 },
                 "type": "object"
+            },
+            "ValidateErrorJSON": {
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "enum": [
+                            "Validation failed"
+                        ],
+                        "nullable": false
+                    },
+                    "details": {
+                        "properties": {},
+                        "additionalProperties": {},
+                        "type": "object"
+                    }
+                },
+                "required": [
+                    "message",
+                    "details"
+                ],
+                "type": "object",
+                "additionalProperties": false
             }
         },
         "securitySchemes": {
@@ -196,6 +218,16 @@
                                 }
                             }
                         }
+                    },
+                    "422": {
+                        "description": "Validation Failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidateErrorJSON"
+                                }
+                            }
+                        }
                     }
                 },
                 "description": "Returns an array of chats owned by the user. User identity (email) is extracted from JWT token.",
@@ -219,6 +251,16 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/NewChat"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidateErrorJSON"
                                 }
                             }
                         }

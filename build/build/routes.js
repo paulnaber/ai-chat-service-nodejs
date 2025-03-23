@@ -22,6 +22,15 @@ const models = {
         "type": { "dataType": "nestedObjectLiteral", "nestedProperties": { "lastActiveDate": { "dataType": "union", "subSchemas": [{ "dataType": "datetime" }, { "dataType": "undefined" }] }, "title": { "dataType": "union", "subSchemas": [{ "dataType": "string" }, { "dataType": "undefined" }] }, "id": { "dataType": "union", "subSchemas": [{ "dataType": "string" }, { "dataType": "undefined" }] } }, "validators": {} },
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "ValidateErrorJSON": {
+        "dataType": "refObject",
+        "properties": {
+            "message": { "dataType": "enum", "enums": ["Validation failed"], "required": true },
+            "details": { "dataType": "nestedObjectLiteral", "nestedProperties": {}, "additionalProperties": { "dataType": "any" }, "required": true },
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 };
 const templateService = new runtime_1.ExpressTemplateService(models, { "noImplicitAdditionalProperties": "throw-on-extras", "bodyCoercion": true });
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa

@@ -5,11 +5,12 @@
 
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import express from 'express';
+import express, { ErrorRequestHandler } from 'express';
 import * as path from 'path';
 import { RegisterRoutes } from '../build/routes';
 
 // import routes from './app/routes';
+import { ValidateError } from 'tsoa';
 import swaggerDocs from './swaggerController';
 
 const app = express();
@@ -25,28 +26,25 @@ app.use('/assets', express.static(path.join(__dirname, 'assets')));
 // tsoa routes
 RegisterRoutes(app);
 
-// app.use(function errorHandler(
-//   err: unknown,
-//   req: ExRequest,
-//   res: ExResponse,
-//   next: NextFunction
-// ): ExResponse | void {
-//   if (err instanceof ValidateError) {
-//     console.warn(`Caught Validation Error for ${req.path}:`, err.fields);
-//     return res.status(422).json({
-//       message: 'Validation Failed',
-//       details: err?.fields,
-//     });
-//   }
-//   if (err instanceof Error) {
-//     console.warn('err in errorHandler', err);
-//     return res.status((err as any)?.status || 500).json({
-//       message: err.message || 'Internal Server Error',
-//     });
-//   }
+const errorHandler: ErrorRequestHandler = (err, req, res, next): void => {
+  if (err instanceof ValidateError) {
+    console.warn(`Caught Validation Error for ${req.path}:`, err.fields);
+    res.status(422).json({
+      message: 'Validation Failed',
+      details: err?.fields,
+    });
+  }
+  if (err instanceof Error) {
+    console.error(`Internal Server Error: ${err.message}`);
+    res.status(500).json({
+      message: 'Internal Server Error',
+    });
+  }
 
-//   next();
-// });
+  next();
+};
+
+app.use(errorHandler);
 
 swaggerDocs(app, port);
 
