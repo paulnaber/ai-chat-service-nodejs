@@ -1,8 +1,8 @@
 import { createMessage, getMessages } from '../db/queries/messages';
-import { NewMessage } from '../db/schema';
+import { MessageDTO } from './message.models';
 
 export class MessageService {
-  static async getAll(chatId: string): Promise<NewMessage[]> {
+  static async getAll(chatId: string): Promise<MessageDTO[]> {
     return await getMessages(chatId);
   }
 
@@ -10,7 +10,7 @@ export class MessageService {
     chatId: string,
     message: string,
     userId: string
-  ): Promise<NewMessage> {
+  ): Promise<MessageDTO> {
     return await createMessage({
       userId,
       content: message,

@@ -10,17 +10,6 @@ export const chats = pgTable('chats', {
     .$onUpdate(() => new Date()),
 });
 
-// TODO figure out how this works with tsos
-// until then we have to create the type manually
-export type _NewChat = typeof chats.$inferInsert;
-
-export type NewChat = {
-  id?: string | undefined;
-  userId: string;
-  title?: string | undefined;
-  lastActiveDate?: Date | undefined;
-};
-
 export const messages = pgTable('messages', {
   id: uuid('id').primaryKey().defaultRandom(),
   userId: varchar('user_id').notNull(),
@@ -31,16 +20,3 @@ export const messages = pgTable('messages', {
     .references(() => chats.id, { onDelete: 'cascade' })
     .notNull(),
 });
-
-// TODO figure out how this works with tsos
-// until then we have to create the type manually
-export type _NewMessage = typeof messages.$inferInsert;
-
-export type NewMessage = {
-  content: string;
-  userId: string;
-  chatId: string;
-  id?: string | undefined;
-  senderType?: string | undefined;
-  createdAt?: Date | undefined;
-};

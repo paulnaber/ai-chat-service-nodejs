@@ -10,7 +10,7 @@ import {
   Security,
   Tags,
 } from 'tsoa';
-import { NewMessage } from '../db/schema';
+import { MessageCreateDTO, MessageDTO } from './message.models';
 import { MessageService } from './message.service';
 
 @Route('v1/chats')
@@ -22,7 +22,7 @@ export class MessageController extends Controller {
   @Security('BearerAuth') // add role checks like this: @Security('BearerAuth', ['admin'])
   @Get('{chatId}/messages')
   @Tags('Messages')
-  public async getMessages(@Path() chatId: string): Promise<NewMessage[]> {
+  public async getMessages(@Path() chatId: string): Promise<MessageDTO[]> {
     return MessageService.getAll(chatId);
   }
 
@@ -34,10 +34,10 @@ export class MessageController extends Controller {
   @Post('{chatId}/messages')
   @Tags('Messages')
   public async createMessage(
-    @Body() body: { content: string },
+    @Body() body: MessageCreateDTO,
     @Path() chatId: string,
     @Request() request: any
-  ): Promise<NewMessage> {
+  ): Promise<MessageDTO> {
     // TODO why is there no email in request.user?
     // this also needs to be checked first
     console.warn('userId from token ---->', request.user.preferred_username);

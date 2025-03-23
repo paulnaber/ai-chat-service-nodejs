@@ -10,8 +10,8 @@ import {
   Security,
   Tags,
 } from 'tsoa';
-import { NewChat } from '../db/schema';
 import { ValidateErrorJSON } from '../errors';
+import { ChatCreateDTO, ChatDTO } from './chat.models';
 import { ChatService } from './chat.service';
 
 @Route('v1/chats')
@@ -24,7 +24,7 @@ export class ChatsController extends Controller {
   @Security('BearerAuth') // add role checks like this: @Security('BearerAuth', ['admin'])
   @Get()
   @Tags('Chats')
-  public async getChats(@Request() request: any): Promise<NewChat[]> {
+  public async getChats(@Request() request: any): Promise<ChatDTO[]> {
     // TODO why is there no email in request.user?
     // this also needs to be checked first
     console.warn('userId from token ---->', request.user.preferred_username);
@@ -40,9 +40,9 @@ export class ChatsController extends Controller {
   @Post()
   @Tags('Chats')
   public async createChat(
-    @Body() body: { content: string },
+    @Body() body: ChatCreateDTO,
     @Request() request: any
-  ): Promise<NewChat> {
+  ): Promise<ChatDTO> {
     // TODO why is there no email in request.user?
     // this also needs to be checked first
     console.warn('userId from token ---->', request.user.preferred_username);
