@@ -20,6 +20,15 @@ The main focus of this project is the architecture. I want to compare it with ot
 
 ### Getting Started
 
+0. Before getting started make sure to
+
+```
+add .env file (see .env.example)
+have oauth2 provider up and running
+have postgres up and running
+have node installed on your machine (if nvm -> run nvm use)
+```
+
 1. Install dependencies:
 
 ```bash
