@@ -56,3 +56,17 @@ npm run start
 ### Swagger
 
 http://localhost:3000/swagger-ui/
+
+### How to run integration tests
+
+1. Start the test database:
+
+```bash
+npm run docker-compose:test
+```
+
+2. Run the tests:
+
+```bash
+npm run test
+```

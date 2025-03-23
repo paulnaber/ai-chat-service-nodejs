@@ -1,7 +1,7 @@
 import { eq } from 'drizzle-orm';
-import { ChatDTO } from '../../chat/chat.models.js';
-import { db } from '../index.js';
-import { chats } from '../schema.js';
+import { ChatDTO } from '../../chat/chat.models';
+import { db } from '../index';
+import { chats } from '../schema';
 
 export async function getChats(userId: string) {
   return db.select().from(chats).where(eq(chats.userId, userId));

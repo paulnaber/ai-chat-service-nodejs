@@ -1,7 +1,7 @@
 import * as express from 'express';
 import * as jwt from 'jsonwebtoken';
 import * as jwksClient from 'jwks-rsa';
-import { config } from './config.js';
+import { config } from './config';
 
 export function expressAuthentication(
   request: express.Request,
