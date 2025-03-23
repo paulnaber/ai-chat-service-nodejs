@@ -10,7 +10,7 @@
     "generate": "drizzle-kit generate",
     "migrate": "drizzle-kit migrate",
     "test": "vitest --run",
-    "tsoa": "tsoa routes",
+    "tsoa": "tsoa spec-and-routes",
     "tsc": "tsc --outDir build --experimentalDecorators"
   },
   "author": "Paul Naber",

@@ -43,6 +43,6 @@ const postgres_1 = __importDefault(require("postgres"));
 const config_js_1 = require("../config.js");
 const schema = __importStar(require("./schema.js"));
 const migrationClient = (0, postgres_1.default)(config_js_1.config.db.url, { max: 1 });
-await (0, migrator_1.migrate)((0, postgres_js_1.drizzle)(migrationClient), config_js_1.config.db.migrationConfig);
+(0, migrator_1.migrate)((0, postgres_js_1.drizzle)(migrationClient), config_js_1.config.db.migrationConfig);
 const conn = (0, postgres_1.default)(config_js_1.config.db.url);
 exports.db = (0, postgres_js_1.drizzle)(conn, { schema });

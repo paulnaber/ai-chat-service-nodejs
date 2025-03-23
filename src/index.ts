@@ -10,7 +10,7 @@ import * as path from 'path';
 import { RegisterRoutes } from '../build/routes';
 
 // import routes from './app/routes';
-// import swaggerDocs from './app/swagger';
+import swaggerDocs from './swaggerController';
 
 const app = express();
 const port = process.env.PORT || 3333;
@@ -48,7 +48,7 @@ RegisterRoutes(app);
 //   next();
 // });
 
-// swaggerDocs(app, 3333);
+swaggerDocs(app, port);
 
 const server = app.listen(port, () => {
   console.log(`Listening at http://localhost:${port}/`);

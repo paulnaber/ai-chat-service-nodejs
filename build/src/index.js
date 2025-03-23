@@ -46,7 +46,7 @@ const express_1 = __importDefault(require("express"));
 const path = __importStar(require("path"));
 const routes_1 = require("../build/routes");
 // import routes from './app/routes';
-// import swaggerDocs from './app/swagger';
+const swaggerController_1 = __importDefault(require("./swaggerController"));
 const app = (0, express_1.default)();
 const port = process.env.PORT || 3333;
 app.use((0, cors_1.default)());
@@ -77,7 +77,7 @@ app.use('/assets', express_1.default.static(path.join(__dirname, 'assets')));
 //   }
 //   next();
 // });
-// swaggerDocs(app, 3333);
+(0, swaggerController_1.default)(app, 3333);
 const server = app.listen(port, () => {
     console.log(`Listening at http://localhost:${port}/`);
 });

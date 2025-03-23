@@ -85,7 +85,7 @@ const verifyJwt = async (token) => {
             if (err) {
                 reject(err);
             }
-            resolve(key === null || key === void 0 ? void 0 : key.getPublicKey());
+            resolve(key?.getPublicKey());
         });
     });
     // Verify the token with the public key
@@ -98,5 +98,5 @@ const verifyJwt = async (token) => {
     }
 };
 function checkRoles(token, scopes) {
-    return scopes.every((scope) => { var _a, _b; return (_b = (_a = token.realm_access) === null || _a === void 0 ? void 0 : _a.roles) === null || _b === void 0 ? void 0 : _b.includes(scope); });
+    return scopes.every((scope) => token.realm_access?.roles?.includes(scope));
 }

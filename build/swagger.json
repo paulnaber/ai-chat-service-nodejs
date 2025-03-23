@@ -1,0 +1,103 @@
+{
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"NewChat": {
+				"properties": {
+					"lastActiveDate": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"title": {
+						"type": "string"
+					},
+					"id": {
+						"type": "string"
+					}
+				},
+				"type": "object"
+			}
+		},
+		"securitySchemes": {
+			"BearerAuth": {
+				"type": "http",
+				"scheme": "bearer",
+				"bearerFormat": "string"
+			}
+		}
+	},
+	"info": {
+		"title": "AI Chat API",
+		"version": "1.0.0",
+		"description": "AI Chat API",
+		"contact": {
+			"name": "Paul Naber",
+			"email": "paul.naber@inside-m2m.de"
+		}
+	},
+	"openapi": "3.0.0",
+	"paths": {
+		"/v1/chats": {
+			"get": {
+				"operationId": "GetChats",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/NewChat"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"description": "Get all Players",
+				"tags": [
+					"Chats"
+				],
+				"security": [
+					{
+						"BearerAuth": [
+							"admin"
+						]
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/openapi": {
+			"get": {
+				"operationId": "GetOpenapi",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"description": "Get OpenAPI definition",
+				"tags": [
+					"Openapi"
+				],
+				"security": [],
+				"parameters": []
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/"
+		}
+	]
+}
