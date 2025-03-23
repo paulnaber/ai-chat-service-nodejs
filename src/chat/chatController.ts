@@ -1,7 +1,7 @@
 // src/users/usersController.ts
 import { Controller, Get, Route, Security, Tags } from 'tsoa';
-import { NewChat } from '../../db/schema.js';
-import { ChatService } from './chat.service.js';
+import { NewChat } from '../db/schema';
+import { ChatService } from './chat.service';
 
 // interface ValidateErrorJSON {
 //   message: 'Validation failed';

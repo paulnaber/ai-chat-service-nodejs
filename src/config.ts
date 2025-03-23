@@ -16,13 +16,6 @@ type DBConfig = {
   migrationConfig: MigrationConfig;
 };
 
-type JWTConfig = {
-  defaultDuration: number;
-  refreshDuration: number;
-  secret: string;
-  issuer: string;
-};
-
 dotenv.config();
 
 function envOrThrow(key: string) {

@@ -2,17 +2,16 @@
   "name": "ai-chat-service-nodejs",
   "version": "1.0.0",
   "main": "index.js",
-  "type": "module",
   "scripts": {
-    "build": "npx tsc",
-    "start": "node dist/index.js",
-    "dev": "npx tsc && node dist/index.js",
+    "start": "node build/src/index.js",
+    "dev": "npm run tsoa && npm run tsc && node build/src/index.js",
     "dev:logs": "npm run dev | tee server.log",
     "watch": "npx tsc-watch --onSuccess \"node dist/index.js\" | tee server.log",
     "generate": "drizzle-kit generate",
     "migrate": "drizzle-kit migrate",
     "test": "vitest --run",
-    "tsoa": "tsoa spec-and-routes"
+    "tsoa": "tsoa routes",
+    "tsc": "tsc --outDir build --experimentalDecorators"
   },
   "author": "Paul Naber",
   "devDependencies": {
@@ -32,6 +31,7 @@
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "@tsoa/runtime": "^6.6.0",
     "dotenv": "^16.4.7",
     "drizzle-orm": "^0.40.0",
     "express": "^4.21.2",

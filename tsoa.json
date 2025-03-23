@@ -1,12 +1,9 @@
 {
   "entryFile": "src/index.ts",
   "noImplicitAdditionalProperties": "throw-on-extras",
-  "controllerPathGlobs": [
-    "src/app/**/*Controller.ts",
-    "src/app/**/*swagger.ts"
-  ],
+  "controllerPathGlobs": ["src/**/*Controller.ts"],
   "spec": {
-    "outputDirectory": "src/tsoa-build",
+    "outputDirectory": "build",
     "specVersion": 3,
     "name": "AI Chat API",
     "version": "1.0.0",
@@ -25,7 +22,7 @@
     }
   },
   "routes": {
-    "routesDir": "src/tsoa-build",
+    "routesDir": "build",
     "authenticationModule": "./src/authentication.ts"
   }
 }

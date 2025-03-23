@@ -7,7 +7,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import express from 'express';
 import * as path from 'path';
-import { RegisterRoutes } from './tsoa-build/routes.js';
+import { RegisterRoutes } from '../build/routes';
 
 // import routes from './app/routes';
 // import swaggerDocs from './app/swagger';
