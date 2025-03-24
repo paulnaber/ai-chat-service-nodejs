@@ -5,7 +5,7 @@ The main focus of this project is the architecture. I want to compare it with ot
 
 ## Other Languages and Technologies
 
-[AI Chat Proxy Server - Golang](https://github.com/paulnaber/ai-chat-service-go)
+[AI Chat Proxy Server - Golang](https://github.com/paulnaber/ai-chat-service-go) <br>
 Java...
 
 ## Features
