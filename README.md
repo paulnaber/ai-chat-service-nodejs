@@ -18,7 +18,7 @@ Java...
 
 ## Tech Stack
 
-- tsoa - OpenAPI generation from code with annotation-style patterns
+- tsoa - Defining routes with annotation style patterns, also generate OpenAPI Spec from code
 - Express.js - Lightweight and flexible routing
 - Drizzle ORM - Database interactions with a type-safe and modern approach
 - Docker Compose - Simplified local database setup, Prometheus
@@ -64,18 +64,14 @@ npm run start
 
 http://localhost:3000/swagger-ui/
 
+![swagger-ui](./docs/swagger-ui.png)
+
 ### How to run integration tests
 
-1. Start the test database:
+This will start the docker-compose with the .env.test file, run migrations (also with .env.test) and run the test with jest.
 
 ```bash
-npm run docker-compose:test
-```
-
-2. Run the tests:
-
-```bash
-npm run test
+npm run test:e2e
 ```
 
 ### TODOs

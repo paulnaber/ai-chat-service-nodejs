@@ -35,7 +35,7 @@ describe('Chat API', () => {
       await db.insert(chats).values({
         userId: { preferred_username: 'testuser@example.com' }
           .preferred_username,
-        title: 'Existing chat',
+        title: 'Test chat',
       });
     });
 
@@ -45,7 +45,7 @@ describe('Chat API', () => {
       expect(response.body).toBeInstanceOf(Array);
       expect(response.body.length).toBeGreaterThan(0);
       expect(response.body[0]).toHaveProperty('id');
-      expect(response.body[0].title).toBe('Existing chat');
+      expect(response.body[0].title).toBe('Test chat');
       expect(response.body[0].userId).toBe(
         { preferred_username: 'testuser@example.com' }.preferred_username
       );
