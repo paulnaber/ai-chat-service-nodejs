@@ -1,2 +1,0 @@
-- tryCatch function
-- integration tests

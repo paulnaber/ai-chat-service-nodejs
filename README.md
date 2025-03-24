@@ -3,6 +3,11 @@
 This project is an AI Chat Proxy Server that handles chat and message functionalities.
 The main focus of this project is the architecture. I want to compare it with other technologies and languages.
 
+## Other Languages and Technologies
+
+[AI Chat Proxy Server - Golang](https://github.com/paulnaber/ai-chat-service-go)
+Java...
+
 ## Features
 
 - Supports chat and message operations
@@ -17,6 +22,7 @@ The main focus of this project is the architecture. I want to compare it with ot
 - Express.js - Lightweight and flexible routing
 - Drizzle ORM - Database interactions with a type-safe and modern approach
 - Docker Compose - Simplified local database setup
+- Jest, SuperTest - Integration tests
 
 ### Getting Started
 
@@ -70,3 +76,10 @@ npm run docker-compose:test
 ```bash
 npm run test
 ```
+
+### TODOs
+
+- tryCatch function
+- more integration tests
+- metrics, health checks
+- better logs
