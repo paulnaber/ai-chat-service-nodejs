@@ -15,6 +15,7 @@ Java...
 - Authentication with OAuth2 Provider
 - Downloadable OpenAPI definition (as json)
 - Easy local setup with Docker Compose
+- Metrics with Prometheus
 
 ## Tech Stack
 
