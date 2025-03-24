@@ -21,8 +21,9 @@ Java...
 - tsoa - OpenAPI generation from code with annotation-style patterns
 - Express.js - Lightweight and flexible routing
 - Drizzle ORM - Database interactions with a type-safe and modern approach
-- Docker Compose - Simplified local database setup
+- Docker Compose - Simplified local database setup, Prometheus
 - Jest, SuperTest - Integration tests
+- Prometheus - Metrics
 
 ### Getting Started
 
@@ -81,5 +82,5 @@ npm run test
 
 - tryCatch function
 - more integration tests
-- metrics, health checks
 - better logs
+- grafana

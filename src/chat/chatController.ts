@@ -3,6 +3,7 @@ import {
   Body,
   Controller,
   Get,
+  Middlewares,
   Post,
   Request,
   Response,
@@ -11,6 +12,7 @@ import {
   Tags,
 } from 'tsoa';
 import { ValidateErrorJSON } from '../errors';
+import { getChatsMetricMiddleware } from '../metrics';
 import { ChatCreateDTO, ChatDTO } from './chat.models';
 import { ChatService } from './chat.service';
 
@@ -24,6 +26,7 @@ export class ChatsController extends Controller {
   @Security('BearerAuth') // add role checks like this: @Security('BearerAuth', ['admin'])
   @Get()
   @Tags('Chats')
+  @Middlewares(getChatsMetricMiddleware)
   public async getChats(@Request() request: any): Promise<ChatDTO[]> {
     // TODO why is there no email in request.user?
     // this also needs to be checked first
