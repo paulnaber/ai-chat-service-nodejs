@@ -61,6 +61,12 @@ npm run tsc
 npm run start
 ```
 
+for development run:
+
+```bash
+npm run dev:watch
+```
+
 ### Swagger
 
 http://localhost:3000/swagger-ui/

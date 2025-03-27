@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node build/src/index.js",
     "dev": "npm run tsoa && npm run tsc && node build/src/index.js",
+    "dev:watch": "concurrently \"nodemon\" \"nodemon -x tsoa spec-and-routes\"",
     "dev:logs": "npm run dev | tee server.log",
     "generate": "drizzle-kit generate",
     "migrate": "drizzle-kit migrate",
@@ -33,7 +34,10 @@
     "ts-jest": "^29.2.6",
     "tsoa": "6.6.0",
     "typescript": "^5.8.2",
-    "vitest": "^3.0.7"
+    "vitest": "^3.0.7",
+    "concurrently": "^9.1.2",
+    "nodemon": "^3.1.9",
+    "ts-node": "^10.9.2"
   },
   "dependencies": {
     "@tsoa/runtime": "^6.6.0",
