@@ -5,6 +5,7 @@ import { RegisterRoutes } from '../build/routes';
 
 // import routes from './app/routes';
 import { ValidateError } from 'tsoa';
+import { requestLoggerMiddleware } from './logger';
 import { metricsMiddleware } from './metrics';
 import swaggerDocs from './swaggerController';
 
@@ -19,6 +20,7 @@ const port = process.env.PORT || 3333;
 
 // Add metrics middleware before other routes
 app.use(metricsMiddleware);
+app.use(requestLoggerMiddleware());
 
 app.use(cors());
 app.use(bodyParser.json());
