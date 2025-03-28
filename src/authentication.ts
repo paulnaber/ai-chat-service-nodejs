@@ -2,6 +2,8 @@ import * as express from 'express';
 import * as jwt from 'jsonwebtoken';
 import * as jwksClient from 'jwks-rsa';
 import { config } from './config';
+import { UserNotAuthenticatedError } from './errors';
+import { logger } from './logger';
 
 export function expressAuthentication(
   request: express.Request,
@@ -17,9 +19,9 @@ export function expressAuthentication(
       verifyJwt(token)
         .then((verifiedData) => {
           // Resolve the new promise with the result of verifyJwt
-          console.warn('token verified...');
+          logger.info('token verified...');
           if (checkRoles(verifiedData as jwt.JwtPayload, scopes)) {
-            console.warn('user has the required roles...');
+            logger.info('user has the required roles...');
             resolve(verifiedData);
           } else {
             reject(new Error('User does not have the required role'));
@@ -44,14 +46,14 @@ const client = new jwksClient.JwksClient({
 // Verify and decode the JWT token
 const verifyJwt = async (token: string) => {
   if (!token) {
-    throw new Error('No token provided');
+    throw new UserNotAuthenticatedError('No token provided');
   }
 
   const newToken = token.substring(7, token.length);
   const decoded = jwt.decode(newToken, { complete: true });
 
   if (!decoded || !decoded.header || !decoded.header.kid) {
-    throw new Error('Invalid token format');
+    throw new UserNotAuthenticatedError('Invalid token format');
   }
 
   const kid = decoded.header.kid;
@@ -70,7 +72,9 @@ const verifyJwt = async (token: string) => {
     const verified = jwt.verify(newToken, key, { algorithms: ['RS256'] });
     return verified;
   } catch (error: any) {
-    throw new Error('JWT verification failed: ' + error.message);
+    throw new UserNotAuthenticatedError(
+      'JWT verification failed: ' + error.message
+    );
   }
 };
 
@@ -79,6 +83,6 @@ function checkRoles(token: jwt.JwtPayload, scopes: string[]) {
 }
 
 export function getEmailFromToken(verifiedData: jwt.JwtPayload) {
-  console.warn('verifiedData ---------------------->', verifiedData);
+  logger.debug('getEmailFromToken', verifiedData);
   return 'hier das hat geklappt';
 }

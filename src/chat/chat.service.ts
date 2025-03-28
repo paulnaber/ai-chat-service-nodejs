@@ -7,7 +7,6 @@ export class ChatService {
   }
 
   static async create(content: string, userId: string): Promise<ChatDTO> {
-    console.warn('create', content, userId);
     return await createChat(content, userId);
   }
 }

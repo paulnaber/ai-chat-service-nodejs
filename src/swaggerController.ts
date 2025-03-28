@@ -3,7 +3,7 @@ import { Request as ExRequest, Response as ExResponse, Express } from 'express';
 // import YAML from 'yaml'
 import swaggerUi from 'swagger-ui-express';
 import { Controller, Get, Middlewares, Produces, Route, Tags } from 'tsoa';
-import { requestLoggerMiddleware } from './logger';
+import { logger, requestLoggerMiddleware } from './logger';
 
 // Route to download OpenAPI definition as JSON
 @Route('openapi')
@@ -37,7 +37,7 @@ export class OpenApiController extends Controller {
 }
 
 function swaggerDocs(app: Express, port: number | string) {
-  console.log(`Swagger UI available at http://localhost:${port}/swagger-ui`);
+  logger.info(`Swagger UI available at http://localhost:${port}/swagger-ui`);
 
   app.use(
     '/swagger-ui',
