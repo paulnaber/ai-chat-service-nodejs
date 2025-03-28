@@ -22,9 +22,10 @@ Java...
 - tsoa - Defining routes with annotation style patterns, also generate OpenAPI Spec from code
 - Express.js - Lightweight and flexible routing
 - Drizzle ORM - Database interactions with a type-safe and modern approach
-- Docker Compose - Simplified local database setup, Prometheus
+- Docker Compose - Simplified local database setup, Prometheus, Keycloak
 - Jest, SuperTest - Integration tests
 - Prometheus - Metrics
+- Keycloak - Authentication, Authorization
 
 ### Getting Started
 
@@ -79,6 +80,26 @@ This will start the docker-compose with the .env.test file, run migrations (also
 
 ```bash
 npm run test:e2e
+```
+
+### Keycloak
+
+http://localhost:8080/
+
+update the local realm
+
+```bash
+docker exec -it container bin/bash
+cd /opt/keycloak
+bin/kc.sh export --users realm_file --dir realms
+docker cp container:/opt/keycloak/realms .
+
+```
+
+get a token for the keycloak admin user
+
+```bash
+node ./getToken.mjs
 ```
 
 ### TODOs
