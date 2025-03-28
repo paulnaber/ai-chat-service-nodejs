@@ -11,7 +11,7 @@
     "migrate": "drizzle-kit migrate",
     "tsoa": "tsoa spec-and-routes",
     "tsc": "tsc --outDir build --experimentalDecorators",
-    "test:e2e": "docker compose --env-file .env.test up -d && sleep 3 && dotenv -e .env.test -- drizzle-kit migrate && sleep 3 && dotenv -e .env.test -- jest",
+    "test:e2e": "docker compose --env-file .env.test up -d  --wait && dotenv -e .env.test -- drizzle-kit migrate && sleep 1 && dotenv -e .env.test -- jest",
     "test:e2e:cleanup": "docker compose down"
   },
   "author": "Paul Naber",

@@ -47,6 +47,15 @@ services:
       - '--storage.tsdb.path=/prometheus'
       - '--web.console.libraries=/usr/share/prometheus/console_libraries'
       - '--web.console.templates=/usr/share/prometheus/consoles'
+    healthcheck:
+      test:
+        [
+          'CMD-SHELL',
+          'wget --spider -q http://localhost:9090/-/ready || exit 1',
+        ]
+      interval: 10s
+      timeout: 10s
+      retries: 5
 
   opensearch:
     image: opensearchproject/opensearch:2.11.1
@@ -68,7 +77,7 @@ services:
         hard: -1
     healthcheck:
       test: ['CMD-SHELL', 'curl -f http://localhost:9200/_cat/health || exit 1']
-      interval: 30s
+      interval: 10s
       timeout: 10s
       retries: 5
 
@@ -96,6 +105,14 @@ services:
     volumes:
       # Realms (Settings & User)
       - ./realms/my-test-realm-realm.json:/opt/keycloak/data/import/my-test-realm-realm.json
+    healthcheck:
+      # test: ['CMD-SHELL', 'curl http://localhost:8080/ || exit 1']
+      # TODO fix healthcheck
+      test: ['CMD-SHELL', 'exit 0']
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 10s
 
 volumes:
   postgres_data:
