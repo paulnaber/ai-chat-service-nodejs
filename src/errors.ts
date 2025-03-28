@@ -2,9 +2,17 @@ import { ErrorRequestHandler } from 'express';
 import { ValidateError } from 'tsoa';
 import { logger } from './logger';
 
-export interface ValidateErrorJSON {
-  message: 'Validation failed';
-  details: { [name: string]: unknown };
+export const ERROR_422 = 'Validation Failed';
+export const ERROR_401 = 'Authentication Failed';
+export const ERROR_500 = 'Internal Server Error';
+
+export interface ErrorDTO {
+  message: string;
+  err: {
+    name: string;
+    message: string;
+    stack: string;
+  };
 }
 
 export class BadRequestError extends Error {
@@ -38,27 +46,19 @@ export const errorHandler: ErrorRequestHandler = (
   next
 ): void => {
   if (err instanceof ValidateError) {
-    res.status(422).json({
-      message: 'Validation Failed',
-      details: err?.fields,
-    });
+    res.status(422).json(getErrorResponse(ERROR_422, err));
     logger.error(
       `Caught Validation Error for: ${req.method} ${req.url} ${res.statusCode} ${err}`
     );
     return;
   } else if (err instanceof UserNotAuthenticatedError) {
-    res.status(403).json({
-      message: 'Authentication Failed',
-      details: err,
-    });
+    res.status(401).json(getErrorResponse(ERROR_401, err));
     logger.error(
       `Caught Authentication Error for: ${req.method} ${req.url} ${res.statusCode} ${err}`
     );
     return;
   } else if (err instanceof Error) {
-    res.status(500).json({
-      message: 'Internal Server Error',
-    });
+    res.status(500).json(getErrorResponse(ERROR_500, err));
     logger.error(
       `Internal Server Error: ${req.method} ${req.url} ${res.statusCode} ${err}`
     );
@@ -67,3 +67,14 @@ export const errorHandler: ErrorRequestHandler = (
 
   next();
 };
+
+function getErrorResponse(message: string, err: Error) {
+  return {
+    message,
+    error: {
+      name: err.name,
+      message: err.message,
+      stack: err.stack, // TODO maybe hide?
+    },
+  };
+}

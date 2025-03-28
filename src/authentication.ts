@@ -5,6 +5,9 @@ import { config } from './config';
 import { UserNotAuthenticatedError } from './errors';
 import { logger } from './logger';
 
+// TODO should I log here even? since I throw erros and catch them in the error handler
+// logging the errors here might be redundant. throwing the errors should be enough
+
 export function expressAuthentication(
   request: express.Request,
   securityName: string,
@@ -24,16 +27,22 @@ export function expressAuthentication(
             logger.info('user has the required roles...');
             resolve(verifiedData);
           } else {
-            reject(new Error('User does not have the required role'));
+            reject(
+              new UserNotAuthenticatedError(
+                'User does not have the required role'
+              )
+            );
           }
         })
         .catch((error) => {
           // Reject the new promise with the error from verifyJwt
-          reject(new Error(error.message));
+          reject(new UserNotAuthenticatedError(error.message));
         });
     });
   }
-  return Promise.reject(new Error('Unsupported security name'));
+  return Promise.reject(
+    new UserNotAuthenticatedError('Unsupported security name')
+  );
 }
 
 // Initialize a JSON Web Key Set (JWKS) client with Keycloak's public key endpoint

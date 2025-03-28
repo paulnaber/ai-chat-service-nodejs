@@ -11,7 +11,7 @@ import {
   Security,
   Tags,
 } from 'tsoa';
-import { ValidateErrorJSON } from '../errors';
+import { ERROR_401, ERROR_422, ErrorDTO } from '../errors';
 import { logger } from '../logger';
 import { getChatsMetricMiddleware } from '../metrics';
 import { ChatCreateDTO, ChatDTO } from './chat.models';
@@ -23,7 +23,7 @@ export class ChatsController extends Controller {
    * Returns an array of chats owned by the user. User identity (email) is extracted from JWT token.
    * @summary Get all chats for a user
    */
-  @Response<ValidateErrorJSON>(422, 'Validation Failed')
+  @Response<ErrorDTO>(401, ERROR_401)
   @Security('BearerAuth') // add role checks like this: @Security('BearerAuth', ['admin'])
   @Get()
   @Tags('Chats')
@@ -42,7 +42,8 @@ export class ChatsController extends Controller {
    * Creates a new chat with the initial message content. User identity (email) is extracted from JWT token.
    * @summary Create a new chat
    */
-  @Response<ValidateErrorJSON>(422, 'Validation Failed')
+  @Response<ErrorDTO>(422, ERROR_422)
+  @Response<ErrorDTO>(401, ERROR_401)
   @Security('BearerAuth')
   @Post()
   @Tags('Chats')

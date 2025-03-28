@@ -6,7 +6,6 @@
     "start": "node build/src/index.js",
     "dev": "npm run tsoa && npm run tsc && node build/src/index.js",
     "dev:watch": "concurrently \"nodemon\" \"nodemon -x tsoa spec-and-routes\"",
-    "dev:logs": "npm run dev | tee server.log",
     "generate": "drizzle-kit generate",
     "migrate": "drizzle-kit migrate",
     "tsoa": "tsoa spec-and-routes",

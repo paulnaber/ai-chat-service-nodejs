@@ -106,11 +106,10 @@ node ./getToken.mjs
 
 - tryCatch function
 - more integration tests
-- better logs
+- better logs, maybe only log errors in error handler
 - more metrics
 - grafana
 - opensearch dashboard for logs
 - proper mocked keycloak setup
 - production setup
 - kafka
-  
